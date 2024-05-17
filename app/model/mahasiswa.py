@@ -12,4 +12,4 @@ class Mahasiswa(db.Model):
     dosen_dua = db.Column(db.BigInteger, db.ForeignKey(Dosen.id))
 
     def __repr__(self):
-        return 'Mahasiswa {}>'.format(self.name)
+        return '<Mahasiswa {}>'.format(self.name)

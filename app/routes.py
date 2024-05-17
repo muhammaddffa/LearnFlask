@@ -1,4 +1,5 @@
 from app import app
+from flask import request
 from app.controller import DosenController
 
 
@@ -8,10 +9,12 @@ def index():
     return 'Hello Flask'
 
 
-@app.route('/dosen', methods=['GET'])
+@app.route('/dosen', methods=['GET', 'POST'])
 def dosens():
-    return DosenController.index()
-
+    if request.method == 'GET':
+        return DosenController.getDosen()
+    else:
+        return DosenController.createDataDosen() 
 
 @app.route('/dosen/<id>', methods=['GET'])
 def dosensDetail(id):

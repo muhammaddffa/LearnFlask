@@ -1,8 +1,6 @@
 from app import db
 from datetime import datetime
 
-
-
 class User(db.Model):
         id = db.Column(db.BigInteger, primary_key=True, autoincrement=True)
         name = db.Column(db.String(250), nullable=False)

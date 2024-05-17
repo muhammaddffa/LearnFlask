@@ -4,7 +4,7 @@ from app.model.mahasiswa import Mahasiswa
 from app import response, app, db
 from flask import request
 
-def index():
+def getDosen():
     try:
         dosen = Dosen.query.all()
         data = formatarray(dosen)
@@ -78,3 +78,28 @@ def formatMahasiswa(data):
     for i in data:
         array.append(singleMahasiswa(i))
     return array
+
+
+# Tujuannya untuk menampung data Dosen untuk di Post di db
+def createDataDosen():
+    try:
+        nidn = request.form.get("nidn")
+        name = request.form.get("name")
+        phone = request.form.get("phone")
+        address = request.form.get("address")
+
+        dosens =Dosen(nidn=nidn, name=name, phone=phone, address=address)
+        db.session.add(dosens)
+        db.session.commit()
+
+        return response.success('','Succes post data Dosen')
+    except Exception as e:
+        print(e)
+
+
+# Update Data
+def updateDataDosen(id):
+    try:
+        
+    except Exception as e:
+        print(e)
