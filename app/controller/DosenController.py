@@ -88,11 +88,11 @@ def createDataDosen():
         phone = request.form.get("phone")
         address = request.form.get("address")
 
-        dosens =Dosen(nidn=nidn, name=name, phone=phone, address=address)
+        dosens = Dosen(nidn=nidn, name=name, phone=phone, address=address)
         db.session.add(dosens)
         db.session.commit()
 
-        return response.success('','Succes post data Dosen')
+        return response.success('201','Succes post data Dosen')
     except Exception as e:
         print(e)
 
@@ -100,6 +100,45 @@ def createDataDosen():
 # Update Data
 def updateDataDosen(id):
     try:
-        
+        nidn = request.form.get('nidn')
+        name = request.form.get('name')
+        phone = request.form.get('phone')
+        address = request.form.get('address')
+
+        input = [
+            {
+                "nidn": nidn,
+                "name": name,
+                "phone": phone,
+                "address": address
+            }
+        ]
+
+        dosen = Dosen.query.filter_by(id=id).first()
+
+        dosen.nidn = nidn
+        dosen.name = name
+        dosen.phone = phone
+        dosen.address = address
+
+        db.session.commit()
+
+        return response.success(input,'Success update data dosen')
     except Exception as e:
         print(e)
+
+#Delete Data
+def deleteDataDosen(id):
+    try:
+        dosen = Dosen.query.filter_by(id=id).first()
+
+        if not dosen:
+            return response.badRequest([], 'Do not Data Dosen...')
+        
+        db.session.delete(dosen)
+        db.session.commit()
+
+        return response.success('', 'Success Delete Data!')
+    except Exception as e:
+        print(e)
+    

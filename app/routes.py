@@ -16,8 +16,13 @@ def dosens():
     else:
         return DosenController.createDataDosen() 
 
-@app.route('/dosen/<id>', methods=['GET'])
+@app.route('/dosen/<id>', methods=['GET', 'PUT', 'DELETE'])
 def dosensDetail(id):
-    return DosenController.detail(id)
+    if request.method == 'GET':
+        return DosenController.detail(id)
+    elif request.method == 'PUT':
+        return DosenController.updateDataDosen(id)
+    elif request.method == 'DELETE':
+        return DosenController.deleteDataDosen(id)
 
 
